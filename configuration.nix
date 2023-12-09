@@ -8,62 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./nixos
     ];
-  nix={
-    settings.experimental-features = [ "nix-command" "flakes" ];
-    gc = {
-      automatic = true;
-      dates = "03:00";
-      options = "--delete-older-than 5d";
-    };
-    optimise = {
-      automatic = true;
-      dates = [ "03:45" ];
-    };
-  };
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
-
-  # Set your time zone.
-  time.timeZone = "Asia/Shanghai";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nixos = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -80,52 +26,8 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services = {
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        X11Forwarding = true;
-        GatewayPorts = "yes";
-        PermitRootLogin = "no";
-      };
-      allowSFTP = true;
-      extraConfig = ''
-        AllowTcpForwarding yes
-        TCPKeepAlive yes
-      '';
-    };
-  };
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking = {
-    hostName = "nixos-server"; # Define your hostname.
-    interfaces.enp6s18.ipv4.addresses = [{
-      address = "192.168.2.15";
-      prefixLength = 24;
-    }];
-    defaultGateway = "192.168.2.1";
-    nameservers = [ "192.168.2.1" ];
-    firewall = {
-      enable = false;
-    };
-    timeServers = [ "192.168.2.1" ];
-  };
+  # enable vscode remote
   programs.nix-ld.enable = true;
-  nix.settings.substituters = [
-    # 中科大
-    "https://mirrors.ustc.edu.cn/nix-channels/store"
-    # 上交
-    "https://mirror.sjtu.edu.cn/nix-channels/store"
-    # 南大
-    "https://mirror.nju.edu.cn/nix-channels/store"
-  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
