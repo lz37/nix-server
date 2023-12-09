@@ -11,5 +11,6 @@
         ./boot.nix
         ./users
         ./etc.nix
+        ./pkgs
     ];
 }
