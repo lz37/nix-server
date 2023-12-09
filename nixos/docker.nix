@@ -6,6 +6,12 @@
     docker = {
       enable = true;
       daemon.settings = {
+        ## k8s start
+        exec-opts=["native.cgroupdriver=systemd"];
+        log-driver="json-file";
+        log-opts.max-size="100m";
+        storage-driver="overlay2";
+        ## k8s end
         builder.gc = {
           defaultKeepStorage = "20GB";
           enabled = true;

@@ -12,5 +12,7 @@
         ./users
         ./etc.nix
         ./pkgs
+        ./docker.nix
+        ./k8s.nix
     ];
 }
